@@ -1,0 +1,928 @@
+/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[12].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[12].oneOf[12].use[3]!./src/app/globals.css ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Nintendo DS Pixel Art Font */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Nintendo DS Base Styles */
+* {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Nintendo DS Color Palette */
+:root {
+  --nintendo-blue: #0066cc;
+  --nintendo-light-blue: #3399ff;
+  --nintendo-dark-blue: #003d7a;
+  --nintendo-orange: #ff6600;
+  --nintendo-light-orange: #ff9933;
+  --nintendo-dark-orange: #cc5200;
+  --nintendo-green: #00cc66;
+  --nintendo-light-green: #33ff99;
+  --nintendo-dark-green: #009933;
+  --nintendo-purple: #9933cc;
+  --nintendo-light-purple: #cc66ff;
+  --nintendo-dark-purple: #663399;
+  --nintendo-red: #ff3333;
+  --nintendo-yellow: #ffcc00;
+  --nintendo-cyan: #00ccff;
+  --nintendo-pink: #ff66cc;
+  --nintendo-gray: #666666;
+  --nintendo-light-gray: #cccccc;
+  --nintendo-dark-gray: #333333;
+  --nintendo-black: #000000;
+  --nintendo-white: #ffffff;
+}
+
+/* Nintendo DS Background */
+.nintendo-ds-bg {
+  background: linear-gradient(135deg, 
+    var(--nintendo-dark-blue) 0%, 
+    var(--nintendo-blue) 50%, 
+    var(--nintendo-dark-blue) 100%);
+}
+
+.nintendo-grid-pattern {
+  background-image: 
+    linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px),
+    linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+/* Nintendo DS Floating Pixels */
+.nintendo-pixel-float {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  animation: nintendo-float 3s ease-in-out infinite;
+}
+
+.nintendo-pixel-yellow { background: var(--nintendo-yellow); }
+.nintendo-pixel-cyan { background: var(--nintendo-cyan); }
+.nintendo-pixel-pink { background: var(--nintendo-pink); }
+.nintendo-pixel-green { background: var(--nintendo-green); }
+
+@keyframes nintendo-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(180deg); }
+}
+
+/* Nintendo DS Title Card */
+.nintendo-title-card {
+  background: var(--nintendo-dark-blue);
+  border: 6px solid var(--nintendo-white);
+  border-radius: 0;
+  padding: 24px 32px;
+  max-width: 800px;
+  box-shadow: 
+    inset 0 0 0 3px var(--nintendo-light-blue),
+    0 6px 0 var(--nintendo-black),
+    0 12px 16px rgba(0,0,0,0.3);
+}
+
+.nintendo-title-card::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  border: 3px solid var(--nintendo-light-blue);
+  pointer-events: none;
+}
+
+.nintendo-title-text {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 24px;
+  color: var(--nintendo-white);
+  text-align: center;
+  margin-bottom: 12px;
+  text-shadow: 3px 3px 0 var(--nintendo-black);
+  line-height: 1.4;
+}
+
+.nintendo-subtitle-text {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  color: var(--nintendo-cyan);
+  text-align: center;
+  text-shadow: 2px 2px 0 var(--nintendo-black);
+  line-height: 1.4;
+}
+
+/* Nintendo DS Dual Screen Container */
+.nintendo-dual-screen-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 32px;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 1024px) {
+  .nintendo-dual-screen-container {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* Nintendo DS Screen Styling */
+.nintendo-screen {
+  background: var(--nintendo-dark-gray);
+  border: 8px solid var(--nintendo-light-gray);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 0 0 3px var(--nintendo-black),
+    0 8px 0 var(--nintendo-gray),
+    0 16px 16px rgba(0,0,0,0.4);
+}
+
+.nintendo-top-screen {
+  min-height: 500px;
+}
+
+.nintendo-bottom-screen {
+  min-height: 450px;
+}
+
+.nintendo-screen-header {
+  background: linear-gradient(90deg, var(--nintendo-blue), var(--nintendo-light-blue));
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid var(--nintendo-dark-blue);
+}
+
+.nintendo-screen-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  color: var(--nintendo-white);
+  text-shadow: 2px 2px 0 var(--nintendo-black);
+}
+
+.nintendo-screen-status {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: var(--nintendo-yellow);
+  text-shadow: 2px 2px 0 var(--nintendo-black);
+}
+
+.nintendo-screen-content {
+  padding: 24px;
+  background: linear-gradient(135deg, 
+    var(--nintendo-light-gray) 0%, 
+    var(--nintendo-white) 100%);
+  min-height: calc(100% - 60px);
+  position: relative;
+}
+
+/* Nintendo DS Agent Card Styling */
+.nintendo-agent-container {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nintendo-agent-card {
+  width: 100px;
+  height: 100px;
+  border: 6px solid var(--nintendo-black);
+  border-radius: 12px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    inset 0 0 0 3px var(--nintendo-white),
+    0 6px 0 var(--nintendo-black),
+    0 12px 12px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.nintendo-orange { background: linear-gradient(135deg, var(--nintendo-orange), var(--nintendo-light-orange)); }
+.nintendo-blue { background: linear-gradient(135deg, var(--nintendo-blue), var(--nintendo-light-blue)); }
+.nintendo-green { background: linear-gradient(135deg, var(--nintendo-green), var(--nintendo-light-green)); }
+.nintendo-purple { background: linear-gradient(135deg, var(--nintendo-purple), var(--nintendo-light-purple)); }
+
+.nintendo-active-glow {
+  box-shadow: 
+    inset 0 0 0 3px var(--nintendo-white),
+    0 6px 0 var(--nintendo-black),
+    0 12px 12px rgba(0,0,0,0.3),
+    0 0 30px var(--nintendo-yellow);
+  animation: nintendo-glow-pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes nintendo-glow-pulse {
+  0% { box-shadow: 
+    inset 0 0 0 3px var(--nintendo-white),
+    0 6px 0 var(--nintendo-black),
+    0 12px 12px rgba(0,0,0,0.3),
+    0 0 30px var(--nintendo-yellow); }
+  100% { box-shadow: 
+    inset 0 0 0 3px var(--nintendo-white),
+    0 6px 0 var(--nintendo-black),
+    0 12px 12px rgba(0,0,0,0.3),
+    0 0 40px var(--nintendo-yellow); }
+}
+
+.nintendo-agent-sprite {
+  position: relative;
+  z-index: 2;
+}
+
+.nintendo-sprite-pixel-art {
+  font-size: 32px;
+  filter: contrast(1.2) saturate(1.3);
+}
+
+/* Nintendo DS Status LED */
+.nintendo-status-led {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--nintendo-black);
+  border-radius: 50%;
+  z-index: 3;
+}
+
+.nintendo-led-idle { background: var(--nintendo-gray); }
+.nintendo-led-working { 
+  background: var(--nintendo-yellow);
+  animation: nintendo-led-blink 0.5s ease-in-out infinite alternate;
+}
+.nintendo-led-success { background: var(--nintendo-green); }
+.nintendo-led-failure { background: var(--nintendo-red); }
+
+@keyframes nintendo-led-blink {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Nintendo DS Working Indicator */
+.nintendo-working-indicator {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 3px;
+}
+
+.nintendo-pixel-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--nintendo-white);
+  border: 2px solid var(--nintendo-black);
+  animation: nintendo-dot-bounce 1s ease-in-out infinite;
+}
+
+.nintendo-pixel-dot:nth-child(2) { animation-delay: 0.2s; }
+.nintendo-pixel-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes nintendo-dot-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Nintendo DS Nameplate */
+.nintendo-nameplate {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 12px;
+  background: var(--nintendo-black);
+  border: 3px solid var(--nintendo-white);
+  border-radius: 6px;
+  padding: 8px 12px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.nintendo-nameplate-content {
+  text-align: center;
+}
+
+.nintendo-agent-name {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: var(--nintendo-white);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.nintendo-agent-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--nintendo-cyan);
+  line-height: 1.2;
+}
+
+/* Nintendo DS Animations */
+.nintendo-working-animation {
+  animation: nintendo-work-bounce 0.8s ease-in-out infinite;
+}
+
+.nintendo-success-animation {
+  animation: nintendo-success-scale 0.6s ease-out;
+}
+
+.nintendo-failure-animation {
+  animation: nintendo-failure-shake 0.5s ease-in-out;
+}
+
+@keyframes nintendo-work-bounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.05); }
+}
+
+@keyframes nintendo-success-scale {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes nintendo-failure-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+/* Nintendo DS Success Effects */
+.nintendo-success-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.nintendo-sparkle {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--nintendo-yellow);
+  border: 2px solid var(--nintendo-white);
+  animation: nintendo-sparkle-twinkle 1s ease-in-out infinite;
+}
+
+.nintendo-sparkle:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+.nintendo-sparkle:nth-child(2) { top: 20%; right: 15%; animation-delay: 0.3s; }
+.nintendo-sparkle:nth-child(3) { bottom: 25%; left: 15%; animation-delay: 0.6s; }
+
+@keyframes nintendo-sparkle-twinkle {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+/* Nintendo DS Chat Interface */
+.nintendo-chat-container {
+  background: var(--nintendo-white);
+  border: 6px solid var(--nintendo-black);
+  border-radius: 12px;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 0 0 0 3px var(--nintendo-light-gray);
+}
+
+.nintendo-chat-header {
+  background: linear-gradient(90deg, var(--nintendo-orange), var(--nintendo-light-orange));
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 3px solid var(--nintendo-dark-orange);
+}
+
+.nintendo-manager-avatar {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  background: var(--nintendo-yellow);
+  border: 3px solid var(--nintendo-black);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nintendo-avatar-sprite {
+  font-size: 16px;
+}
+
+.nintendo-avatar-status {
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--nintendo-black);
+  border-radius: 50%;
+}
+
+.nintendo-status-ready { background: var(--nintendo-green); }
+
+.nintendo-chat-info {
+  flex: 1 1;
+}
+
+.nintendo-chat-name {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: var(--nintendo-white);
+  text-shadow: 2px 2px 0 var(--nintendo-black);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.nintendo-chat-status {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--nintendo-yellow);
+  text-shadow: 2px 2px 0 var(--nintendo-black);
+  line-height: 1.2;
+}
+
+.nintendo-chat-signal {
+  display: flex;
+  gap: 2px;
+  align-items: end;
+}
+
+.nintendo-signal-bar {
+  width: 4px;
+  background: var(--nintendo-white);
+  border: 1px solid var(--nintendo-black);
+}
+
+.nintendo-signal-bar:nth-child(1) { height: 8px; }
+.nintendo-signal-bar:nth-child(2) { height: 12px; }
+.nintendo-signal-bar:nth-child(3) { height: 16px; }
+
+/* Nintendo DS Chat Messages */
+.nintendo-chat-messages {
+  flex: 1 1;
+  background: var(--nintendo-light-gray);
+  padding: 12px;
+  overflow: hidden;
+}
+
+.nintendo-message-scroll {
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nintendo-message {
+  display: flex;
+}
+
+.nintendo-message-user {
+  justify-content: flex-end;
+}
+
+.nintendo-message-system {
+  justify-content: flex-start;
+}
+
+.nintendo-message-bubble {
+  position: relative;
+  max-width: 80%;
+  background: var(--nintendo-white);
+  border: 3px solid var(--nintendo-black);
+  border-radius: 12px;
+  padding: 10px 14px;
+  box-shadow: 0 3px 0 var(--nintendo-gray);
+}
+
+.nintendo-message-user .nintendo-message-bubble {
+  background: var(--nintendo-blue);
+}
+
+.nintendo-message-text {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: var(--nintendo-black);
+  line-height: 1.4;
+}
+
+.nintendo-message-user .nintendo-message-text {
+  color: var(--nintendo-white);
+}
+
+/* Nintendo DS Quick Tasks */
+.nintendo-quick-tasks {
+  background: var(--nintendo-gray);
+  border-top: 3px solid var(--nintendo-black);
+  padding: 12px;
+}
+
+.nintendo-quick-tasks-header {
+  margin-bottom: 8px;
+}
+
+.nintendo-quick-tasks-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--nintendo-white);
+  text-shadow: 2px 2px 0 var(--nintendo-black);
+}
+
+.nintendo-quick-tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-gap: 6px;
+  gap: 6px;
+}
+
+.nintendo-quick-task-button {
+  background: var(--nintendo-purple);
+  border: 3px solid var(--nintendo-black);
+  border-radius: 6px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  box-shadow: 0 3px 0 var(--nintendo-dark-purple);
+}
+
+.nintendo-quick-task-button:hover:not(:disabled) {
+  background: var(--nintendo-light-purple);
+  transform: translateY(-2px);
+}
+
+.nintendo-quick-task-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--nintendo-dark-purple);
+}
+
+.nintendo-quick-task-button:disabled {
+  background: var(--nintendo-dark-gray);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.nintendo-button-content {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nintendo-button-icon {
+  font-size: 12px;
+}
+
+.nintendo-button-text {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--nintendo-white);
+  text-shadow: 2px 2px 0 var(--nintendo-black);
+  flex: 1 1;
+  text-align: left;
+  line-height: 1.2;
+}
+
+/* Nintendo DS Input Area */
+.nintendo-input-area {
+  background: var(--nintendo-dark-gray);
+  border-top: 3px solid var(--nintendo-black);
+  padding: 12px;
+}
+
+.nintendo-input-container {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.nintendo-text-input {
+  flex: 1 1;
+  background: var(--nintendo-white);
+  border: 3px solid var(--nintendo-black);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: var(--nintendo-black);
+  box-shadow: inset 0 3px 0 var(--nintendo-light-gray);
+  line-height: 1.2;
+}
+
+.nintendo-text-input:focus {
+  outline: none;
+  box-shadow: 
+    inset 0 3px 0 var(--nintendo-light-gray),
+    0 0 0 3px var(--nintendo-blue);
+}
+
+.nintendo-text-input:disabled {
+  background: var(--nintendo-light-gray);
+  color: var(--nintendo-gray);
+  cursor: not-allowed;
+}
+
+.nintendo-input-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.nintendo-action-button {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--nintendo-black);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  color: var(--nintendo-white);
+}
+
+.nintendo-send-button {
+  background: var(--nintendo-green);
+  box-shadow: 0 3px 0 var(--nintendo-dark-green);
+}
+
+.nintendo-send-button:hover:not(:disabled) {
+  background: var(--nintendo-light-green);
+  transform: translateY(-2px);
+}
+
+.nintendo-reset-button {
+  background: var(--nintendo-red);
+  box-shadow: 0 3px 0 #cc0000;
+}
+
+.nintendo-reset-button:hover {
+  background: #ff6666;
+  transform: translateY(-2px);
+}
+
+.nintendo-action-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 currentColor;
+}
+
+.nintendo-action-button:disabled {
+  background: var(--nintendo-gray);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Nintendo DS Status Bar */
+.nintendo-status-bar {
+  background: var(--nintendo-black);
+  border: 6px solid var(--nintendo-white);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: 
+    inset 0 0 0 3px var(--nintendo-gray),
+    0 6px 0 var(--nintendo-dark-gray),
+    0 12px 12px rgba(0,0,0,0.3);
+}
+
+.nintendo-status-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.nintendo-status-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nintendo-status-indicator {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--nintendo-white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nintendo-status-idle { background: var(--nintendo-gray); }
+.nintendo-status-active { background: var(--nintendo-blue); }
+.nintendo-status-success { background: var(--nintendo-green); }
+.nintendo-status-error { background: var(--nintendo-red); }
+
+.nintendo-led-core {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--nintendo-white);
+}
+
+.nintendo-led-pulse {
+  position: absolute;
+  inset: -6px;
+  border: 3px solid currentColor;
+  border-radius: 50%;
+  animation: nintendo-pulse 1s ease-in-out infinite;
+}
+
+@keyframes nintendo-pulse {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
+.nintendo-status-text {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  color: var(--nintendo-white);
+  text-shadow: 2px 2px 0 var(--nintendo-black);
+}
+
+.nintendo-task-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 400px;
+}
+
+.nintendo-task-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: var(--nintendo-cyan);
+  text-shadow: 2px 2px 0 var(--nintendo-black);
+  white-space: nowrap;
+}
+
+.nintendo-task-display {
+  background: var(--nintendo-dark-blue);
+  border: 3px solid var(--nintendo-blue);
+  border-radius: 6px;
+  padding: 8px 12px;
+  flex: 1 1;
+  min-width: 0;
+}
+
+.nintendo-task-text {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: var(--nintendo-white);
+  text-shadow: 2px 2px 0 var(--nintendo-black);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.nintendo-info-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nintendo-fix-counter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nintendo-counter-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: var(--nintendo-yellow);
+  text-shadow: 2px 2px 0 var(--nintendo-black);
+}
+
+.nintendo-counter-display {
+  display: flex;
+  gap: 3px;
+}
+
+.nintendo-counter-dot {
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--nintendo-white);
+  border-radius: 50%;
+}
+
+.nintendo-dot-filled { background: var(--nintendo-yellow); }
+.nintendo-dot-empty { background: var(--nintendo-gray); }
+
+.nintendo-session-indicator {
+  display: flex;
+  align-items: center;
+}
+
+.nintendo-session-status {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  text-shadow: 2px 2px 0 var(--nintendo-black);
+}
+
+.nintendo-session-active { color: var(--nintendo-green); }
+.nintendo-session-idle { color: var(--nintendo-gray); }
+
+/* Nintendo DS Workflow Panel */
+.nintendo-workflow-panel {
+  background: var(--nintendo-dark-gray);
+  border: 8px solid var(--nintendo-light-gray);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 
+    inset 0 0 0 3px var(--nintendo-black),
+    0 8px 0 var(--nintendo-gray),
+    0 16px 16px rgba(0,0,0,0.4);
+}
+
+/* Nintendo DS Scrollbars */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--nintendo-gray);
+  border: 2px solid var(--nintendo-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--nintendo-blue);
+  border: 2px solid var(--nintendo-black);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--nintendo-light-blue);
+}
+
+/* Nintendo DS Responsive Design */
+@media (max-width: 768px) {
+  .nintendo-title-text {
+    font-size: 16px;
+  }
+  
+  .nintendo-subtitle-text {
+    font-size: 10px;
+  }
+  
+  .nintendo-status-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .nintendo-quick-tasks-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .nintendo-agent-card {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .nintendo-sprite-pixel-art {
+    font-size: 24px;
+  }
+  
+  .nintendo-agent-name {
+    font-size: 8px;
+  }
+  
+  .nintendo-agent-title {
+    font-size: 6px;
+  }
+}
+
+/* Nintendo DS Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Nintendo DS Print Styles */
+@media print {
+  .nintendo-ds-bg {
+    background: white !important;
+  }
+  
+  .nintendo-screen {
+    border: 3px solid black !important;
+    box-shadow: none !important;
+  }
+}
+
