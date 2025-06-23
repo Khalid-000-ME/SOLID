@@ -168,103 +168,79 @@ export const MultiAgentSDLC: React.FC = () => {
   };
 
   return (
-    <div className="nintendo-ds-bg relative overflow-hidden">
-      {/* Nintendo DS Style Background Pattern */}
-      <div className="absolute inset-0 nintendo-grid-pattern opacity-10"></div>
+    <div className="relative">
+      {/* Main Container */}
+      <div className="relative z-10">
+        {/* Status Bar */}
+        <div className="mb-6">
+          <StatusBar
+            taskStatus={taskStatus}
+            currentTask={currentTask}
+            fixAttempts={fixAttempts}
+            sessionActive={sessionActive}
+          />
+        </div>
 
-      {/* Floating Pixel Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="nintendo-pixel-float nintendo-pixel-yellow"
-          style={{ top: "10%", left: "5%" }}
-        ></div>
-        <div
-          className="nintendo-pixel-float nintendo-pixel-cyan"
-          style={{ top: "20%", right: "8%" }}
-        ></div>
-        <div
-          className="nintendo-pixel-float nintendo-pixel-pink"
-          style={{ bottom: "25%", left: "12%" }}
-        ></div>
-        <div
-          className="nintendo-pixel-float nintendo-pixel-green"
-          style={{ bottom: "15%", right: "6%" }}
-        ></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto relative z-10 p-4 flex flex-col items-center">
-        <div className="mb-8">
-          <div className="nintendo-title-card mx-auto mb-4 text-center">
-            <div className="nintendo-title-text">🤖 MULTI-AGENT SDLC</div>
-            <div className="nintendo-subtitle-text">
-              Automated Development Team Simulator
+        {/* Main Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Agent Workspace */}
+          <div className="bg-black/50 border-2 border-white/20 rounded-lg overflow-hidden">
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-1">
+              <div className="bg-black/90 p-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-white text-sm font-['Press_Start_2P']">AGENT WORKSPACE</h2>
+                  <span className="inline-flex items-center px-2 py-1 rounded text-xs font-['Press_Start_2P'] bg-blue-900/50 text-blue-300">
+                    {sessionActive ? '🟢 ACTIVE' : '⚫ STANDBY'}
+                  </span>
+                </div>
+                <AgentCircle agents={agents} taskStatus={taskStatus} />
+              </div>
             </div>
           </div>
-        </div>
 
-        
-
-        {/* Nintendo DS Style Status Bar */}
-        <div className="flex justify-center">
-          <div className="w-full max-w-3xl">
-            <StatusBar
-              taskStatus={taskStatus}
-              currentTask={currentTask}
-              fixAttempts={fixAttempts}
-              sessionActive={sessionActive}
-            />
-          </div>
-        </div>
-
-        {/* Nintendo DS Dual Screen Layout */}
-        <div className="flex justify-center">
-          <div className="w-full max-w-3xl">
-            <div className="nintendo-dual-screen-container">
-              {/* Top Screen - Agent Circle */}
-              <div className="nintendo-screen nintendo-top-screen px-4">
-                <div className="nintendo-screen-header">
-                  <div className="nintendo-screen-title">AGENT WORKSPACE</div>
-                  <div className="nintendo-screen-status">
-                    {sessionActive ? "🟢 ACTIVE" : "⚫ STANDBY"}
-                  </div>
+          {/* Command Center */}
+          <div className="bg-black/50 border-2 border-white/20 rounded-lg overflow-hidden">
+            <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-1">
+              <div className="bg-black/90 p-4 h-full">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-white text-sm font-['Press_Start_2P']">COMMAND CENTER</h2>
+                  <span className="inline-flex items-center px-2 py-1 rounded text-xs font-['Press_Start_2P'] bg-purple-900/50 text-purple-300">
+                    {currentTask ? '📝 TASK ACTIVE' : '💬 READY'}
+                  </span>
                 </div>
-                <div className="nintendo-screen-content">
-                  <AgentCircle agents={agents} taskStatus={taskStatus} />
-                </div>
-              </div>
-
-              {/* Bottom Screen - Chat Interface */}
-              <div className="nintendo-screen nintendo-bottom-screen px-4">
-                <div className="nintendo-screen-header">
-                  <div className="nintendo-screen-title">COMMAND CENTER</div>
-                  <div className="nintendo-screen-status">
-                    {currentTask ? "📝 TASK ACTIVE" : "💬 READY"}
-                  </div>
-                </div>
-                <div className="nintendo-screen-content">
-                  <ChatInterface
-                    onStartTask={startWorkflow}
-                    disabled={sessionActive}
-                    onReset={resetWorkflow}
-                  />
-                </div>
+                <ChatInterface
+                  onStartTask={startWorkflow}
+                  disabled={sessionActive}
+                  onReset={resetWorkflow}
+                  taskStatus={taskStatus}
+                />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Nintendo DS Style Workflow Panel */}
-        <div className="flex justify-center mt-8">
-          <div className="w-full max-w-3xl">
-            <div className="nintendo-workflow-panel">
-              <WorkflowVisualization
-                taskStatus={taskStatus}
+        {/* Workflow Visualization */}
+        <div className="mt-6 bg-black/50 border-2 border-white/20 rounded-lg overflow-hidden">
+          <div className="bg-gradient-to-r from-pink-600 to-red-600 p-1">
+            <div className="bg-black/90 p-4">
+              <h2 className="text-white text-sm font-['Press_Start_2P'] mb-4">WORKFLOW VISUALIZATION</h2>
+              <WorkflowVisualization 
+                taskStatus={taskStatus} 
+                agents={agents} 
                 fixAttempts={fixAttempts}
-                agents={agents}
+                sessionActive={sessionActive}
+                currentTask={currentTask}
               />
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Decorative Elements */}
+      <div className="absolute inset-0 -z-10 opacity-20">
+        <div className="absolute inset-0 bg-[url('/grid-pattern.png')] opacity-5"></div>
+        <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-blue-500/20 rounded-full filter blur-3xl"></div>
+        <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-purple-500/20 rounded-full filter blur-3xl"></div>
       </div>
     </div>
   );

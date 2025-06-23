@@ -31,12 +31,6 @@ export const AgentCircle: React.FC<AgentCircleProps> = ({ agents, taskStatus }) 
       {/* Task Flow Lines */}
       {taskStatus !== 'idle' && (
         <svg className="absolute inset-0 w-full h-full pointer-events-none">
-          <defs>
-            <marker id="arrowhead" markerWidth="10" markerHeight="7" 
-             refX="9" refY="3.5" orient="auto">
-              <polygon points="0 0, 10 3.5, 0 7" fill="#22d3ee" />
-            </marker>
-          </defs>
           
           {/* Flow lines between agents */}
           <g className="animate-pulse">
