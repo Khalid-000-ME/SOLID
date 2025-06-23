@@ -1,58 +1,35 @@
-from typing import Dict, Any
-from .base_agent import BaseAgent
-from google.adk import AgentContext
+from google.adk.agents import Agent
+from litellm import completion
 
-class TesterAgent(BaseAgent):
-    def __init__(self):
-        super().__init__(
-            name="tester",
-            description="Meticulous QA Inspector - Creates and runs comprehensive tests"
-        )
-        
-        self.prompt = """You are an expert software tester. 
-            Create comprehensive test cases for the following code:
-            
-            Code: {code}
-            
-            Please:
-            1. Identify all testable functions and components
-            2. Create unit tests for each component
-            3. Include edge cases and error conditions
-            4. Verify all requirements are met
-            5. Document test results
-            
-            Return the test results in JSON format with clear sections."""
+def test_code(input: str) -> str:
+    prompt = f"""
+    You are a senior QA engineer. You are given a software project as a JSON string:
+    - Each key is a filename (e.g., "backend/server.js")
+    - Each value is the full source code of that file
+    
+    Your job is to:
+    1. **Perform a static code review** — do not execute code
+    2. Identify bugs, missing logic, or syntax issues
+    3. Suggest critical fixes first
+    4. Then suggest enhancements or improvements
+    5. If everything is perfect and nothing needs changing, reply only with:
+    
+        U EE A E A U EE EE A E
+    
+    Input JSON:
+    {input}
+    """
+    response = completion(
+        model="gemini/gemini-2.0-flash",
+        messages=[{"role": "user", "content": prompt}]
+    )
+    
+    return response["choices"][0]["message"]["content"]
 
-    async def process(self, context: AgentContext) -> Dict[str, Any]:
-        self.status = "working"
-        try:
-            code = context.input.get("code")
-            if not code:
-                raise ValueError("code is required")
-                
-            prompt = self.prompt.format(code=code)
-            logger.info(f"Generating tests for code: {code[:50]}...")
-            response = await self.model.generate_text(prompt)
-            
-            # Ensure we return a dictionary with proper status
-            if isinstance(response, str):
-                # If we get a string response, create a dictionary
-                return {
-                    "status": "success",
-                    "results": response
-                }
-            
-            # If we already have a dictionary, ensure it has the right structure
-            if not isinstance(response, dict):
-                raise ValueError("Invalid response format")
-                
-            # Ensure status is set
-            if "status" not in response:
-                response["status"] = "success"
-            
-            self.status = response["status"]
-            return response
-        except Exception as e:
-            logger.error(f"Error in tester process: {str(e)}")
-            self.status = "failure"
-            raise e
+tester_agent = Agent(
+    name="tester_agent",
+    model="gemini-2.0-flash",
+    description="Tests the generated code and reports issues or improvements.",
+    instruction="Use the `test_code` tool to evaluate code passed as a JSON string. Focus first on errors, then enhancements.",
+    tools=[test_code]
+)

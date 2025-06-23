@@ -201,16 +201,6 @@ export const MultiAgentSDLC: React.FC = () => {
             </div>
           </div>
         </div>
-        
-        
-        <div className="my-[100px] w-full flex justify-center">
-          <div className="p-4 text-center shadow-md rounded">
-            <div className="nintendo-title-text">🤖 MULTI-AGENT SDLC</div>
-            <div className="nintendo-subtitle-text">
-              Automated Development Team Simulator
-            </div>
-          </div>
-        </div>
 
         
 

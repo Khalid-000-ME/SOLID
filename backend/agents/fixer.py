@@ -1,52 +1,44 @@
-from typing import Dict, Any
-from .base_agent import BaseAgent
+from google.adk.agents import Agent
+from litellm import completion
 
-class FixerAgent(BaseAgent):
-    def __init__(self):
-        super().__init__(
-            name="fixer",
-            description="Resourceful Intern - Fixes bugs and improves code quality"
-        )
-        
-        self.prompt = """You are an expert bug fixer and code improver. 
-            The following code has failed some tests:
-            
-            Code: {code}
-            
-            Test Results: {test_results}
-            
-            Please:
-            1. Identify the issues based on test results
-            2. Fix the bugs
-            3. Improve code quality
-            4. Add necessary comments
-            5. Ensure all requirements are met
-            
-            Return the fixed code in JSON format with clear sections."""
+def fix_code(input: str) -> str:
+    '''
+    The input is a JSON string of code and/or test report.
+    The tool fixes the bugs found and returns an updated code JSON.
+    '''
 
-    async def process(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
-        self.status = "working"
-        try:
-            code = input_data.get("code")
-            test_results = input_data.get("test_results")
-            
-            if not code or not test_results:
-                raise ValueError("Both code and test_results are required")
-                
-            context = {
-                "code": code,
-                "test_results": test_results
-            }
-            prompt = self.prompt.format(**context)
-            response = await self.generate_response(prompt)
-            
-            # Ensure we return a dictionary with the fixed code
-            if isinstance(response, str):
-                return {"code": response}
-            
-            self.status = "success"
-            return response
-        except Exception as e:
-            logger.error(f"Error in fixer process: {str(e)}")
-            self.status = "failure"
-            raise e
+    prompt = f"""
+You are a senior code fixer and bug resolver. The input is a string that includes:
+- The original code (as JSON with filenames as keys)
+- The test result describing bugs or enhancements
+
+Your task:
+1. Carefully parse the code JSON
+2. Fix **only the bugs and errors mentioned in the test result**
+3. Preserve the existing file structure and filenames
+4. Output only the corrected JSON with the same format:
+   {{
+     "path/to/file1": "fixed code here",
+     "path/to/file2": "..."
+   }}
+
+**Do not** include explanations, extra text, markdown, or comments.
+
+Input:
+{input}
+"""
+
+    response = completion(
+        model="gemini/gemini-2.0-flash",
+        messages=[{"role": "user", "content": prompt}]
+    )
+    
+    return response["choices"][0]["message"]["content"]
+
+fixer_agent = Agent(
+    name="fixer_agent",
+    model="gemini-2.0-flash",
+    description="Fixes bugs in code based on test result.",
+    instruction="Use the `fix_code` tool to correct code provided as JSON based on the test report.",
+    tools=[fix_code]
+)

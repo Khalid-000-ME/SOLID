@@ -1,46 +1,44 @@
-from typing import Dict, Any
-from .base_agent import BaseAgent
-from google.adk import AgentContext
+from google.adk.agents import Agent
+from litellm import completion
+import json
 
-class CoderAgent(BaseAgent):
-    def __init__(self):
-        super().__init__(
-            name="coder",
-            description="Focused Developer - Implements code according to specifications"
-        )
+def generate_code(prd: str) -> str:
+    '''
+        Reads the PRD from session memory and generates corresponding code.
+    '''
+    
+    if not prd:
+        return "No PRD found in session. Please run the planner agent first."
         
-        self.prompt = """You are an expert software developer. 
-            Implement the code according to the following plan:
-            
-            Plan: {plan}
-            
-            Please:
-            1. Write clean, well-documented code
-            2. Follow best practices
-            3. Include error handling
-            4. Add appropriate comments
-            5. Structure the code for maintainability
-            
-            Return the complete implementation in JSON format with clear sections."""
-
-    async def process(self, context: AgentContext) -> Dict[str, Any]:
-        self.status = "working"
-        try:
-            plan = context.input.get("plan")
-            if not plan:
-                raise ValueError("plan is required")
-                
-            prompt = self.prompt.format(plan=plan)
-            logger.info(f"Generating code for plan: {plan[:50]}...")
-            response = await self.model.generate_text(prompt)
-            
-            # Ensure we return a dictionary with the code
-            if isinstance(response, str):
-                return {"code": response}
-            
-            self.status = "success"
-            return response
-        except Exception as e:
-            logger.error(f"Error in coder process: {str(e)}")
-            self.status = "failure"
-            raise e
+    prompt = f"""
+    You are a senior software developer. Based on this PRD, generate code as a JSON dictionary where:
+    - keys = filenames (e.g., 'main.py', 'models/book.py')
+    - values = code for that file as string
+    
+    Respond with only the JSON. No explanation.
+    
+    PRD:
+    {prd}
+    """
+    
+    response = completion(
+        model="gemini/gemini-2.0-flash",
+        messages=[{"role":"user", "content":prompt}]
+    )
+    
+    code = response["choices"][0]["message"]["content"]
+    
+    try:
+        code_dict = json.loads(code)
+    except json.JSONDecodeError:
+        code_dict = {"-code-": code}
+    
+    return code
+    
+coder_agent = Agent(
+    name="coder_agent",
+    model="gemini-2.0-flash",
+    description="Reads PRD and writes clean Python code.",
+    instruction="Use the PRD from the planner to write code. Use generate_code.",
+    tools=[generate_code]
+)
